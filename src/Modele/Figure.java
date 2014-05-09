@@ -20,8 +20,6 @@ public class Figure {
         
     }
     
-    public Figure(Case[][] tabCase, int , int y){
-        
-    }
+
     
 }
