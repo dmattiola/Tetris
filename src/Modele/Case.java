@@ -13,5 +13,7 @@ import javax.swing.JPanel;
  * @author Jérémy
  */
 public class Case extends JPanel{
-    
+    public Case(){
+        
+    }
 }
