@@ -7,33 +7,37 @@
 package tetris;
 
 import Vue.Fenetre;
+import java.util.Observable;
 import javax.swing.SwingUtilities;
 
 /**
  *
  * @author Dylan
  */
-public class Tetris {
+public class Tetris extends Observable implements Runnable {
 
+    private Thread process;
     
     public Tetris(){
-        //new Thread( this).start();
+        if (process == null) {
+  	process = new Thread(this);
+  	process.start();
+        }
     }
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable(){
-			public void run(){
-				//On crée une nouvelle instance de notre JDialog
-				Fenetre fenetre = new Fenetre();
-				fenetre.setVisible(true);//On la rend visible
-			}
-		});
-
+        Tetris tetris = new Tetris();
+        Fenetre fenetre = new Fenetre();
+        tetris.addObserver(fenetre);
+        fenetre.setVisible(true);//On la rend visible	
     }
 
-   
+    @Override
+    public void run() {
+        	
     }
     
-//}
+    }

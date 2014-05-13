@@ -9,6 +9,8 @@ package Vue;
 import Modele.Case;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -17,7 +19,7 @@ import javax.swing.border.*;
  *
  * @author Dylan
  */
-public class Fenetre extends JFrame {
+public class Fenetre extends JFrame implements Observer{
 
     /**
      * Creates new form Fenetre
@@ -25,12 +27,6 @@ public class Fenetre extends JFrame {
     public Fenetre() {
         super();
         build();
-        addWindowListener(new WindowAdapter() {
-            public void windowsClosing(WindowEvent arg0) {
-                super.windowClosing(arg0);
-                System.exit(0);
-            }
-        });
     }
     
     public void build(){
@@ -46,11 +42,11 @@ public class Fenetre extends JFrame {
         JComponent principal = new JPanel(new BorderLayout());
         JComponent plateau = new JPanel(new GridLayout(20,10));
        
-        Border blackline = BorderFactory.createLineBorder(Color.black,1);
+        Border whiteline = BorderFactory.createLineBorder(Color.white,1);
 
         for (int i = 0; i<200;i++){
             JComponent ptest = new Case();
-            ptest.setBorder(blackline);
+            ptest.setBorder(whiteline);
             plateau.add(ptest);
         }
          principal.add(plateau, "Center");
@@ -66,11 +62,8 @@ public class Fenetre extends JFrame {
         Bouttons.add(tourner);
         principal.add(Bouttons,"East");
         
-        principal.setBorder(blackline);
+        principal.setBorder(whiteline);
         add(principal);
-       
-        
-
     }
 
     /**
@@ -105,4 +98,9 @@ public class Fenetre extends JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update(Observable o, Object o1) {
+        
+    }
 }
