@@ -6,22 +6,27 @@
 
 package Modele;
 
+import java.awt.Color;
+
 /**
  *
  * @author Dylan
  */
-public class Figure {
+public abstract class Piece {
     
     private Case[][] tabCase;
     private int x;
     private int y;
+   
     
-    public Figure(){
+    public Piece(){
         
     }
     
-    public Figure(Case[][] tabCase, int , int y){
+   /*public Figure(Case[][] tabCase, int , int y){
         
     }
+    
+    */
     
 }

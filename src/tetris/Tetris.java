@@ -6,7 +6,7 @@
 
 package tetris;
 
-import Vue.VuePrincipale;
+import Vue.Fenetre;
 import javax.swing.SwingUtilities;
 
 /**
@@ -15,6 +15,10 @@ import javax.swing.SwingUtilities;
  */
 public class Tetris {
 
+    
+    public Tetris(){
+        //new Thread( this).start();
+    }
     /**
      * @param args the command line arguments
      */
@@ -22,11 +26,14 @@ public class Tetris {
         SwingUtilities.invokeLater(new Runnable(){
 			public void run(){
 				//On crée une nouvelle instance de notre JDialog
-				VuePrincipale fenetre = new VuePrincipale();
+				Fenetre fenetre = new Fenetre();
 				fenetre.setVisible(true);//On la rend visible
 			}
 		});
 
     }
+
+   
+    }
     
-}
+//}
