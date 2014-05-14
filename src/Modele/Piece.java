@@ -13,51 +13,57 @@ import static Modele.Utilitaire.monRandom;
  * @author Dylan
  */
 public class Piece {
-    
+
     private Case[][] tabCase;
     private int x;
     private int y;
     private int position;
     public int [][] PieceCourante =  new int [4][16];
-    
+
     // Piece formant un S
     public int[][] Piece1 = { {0,1,0,0,0,1,1,0,0,0,1,0,0,0,0,0},
-			  {0,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0},
-			  {0,1,0,0,0,1,1,0,0,0,1,0,0,0,0,0},
-			  {0,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0} };
+                          {0,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0},
+                          {0,1,0,0,0,1,1,0,0,0,1,0,0,0,0,0},
+                          {0,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0} };
     // Piece formant un carré
     public int[][] Piece2 = { {0,2,2,0,0,2,2,0,0,0,0,0,0,0,0,0},
-			  {0,2,2,0,0,2,2,0,0,0,0,0,0,0,0,0},
-			  {0,2,2,0,0,2,2,0,0,0,0,0,0,0,0,0},
-			  {0,2,2,0,0,2,2,0,0,0,0,0,0,0,0,0} };
+                          {0,2,2,0,0,2,2,0,0,0,0,0,0,0,0,0},
+                          {0,2,2,0,0,2,2,0,0,0,0,0,0,0,0,0},
+                          {0,2,2,0,0,2,2,0,0,0,0,0,0,0,0,0} };
     // Piece formant une barre
     public int[][] Piece3 = { {0,3,0,0,0,3,0,0,0,3,0,0,0,3,0,0},
-			  {3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0},
-			  {0,3,0,0,0,3,0,0,0,3,0,0,0,3,0,0},
-			  {3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0} };
+                          {3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0},
+                          {0,3,0,0,0,3,0,0,0,3,0,0,0,3,0,0},
+                          {3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0} };
     // Piece formant un Z
     public int[][] Piece4 = { {0,0,4,0,0,4,4,0,0,4,0,0,0,0,0,0},
-			  {0,0,0,0,0,4,4,0,0,0,4,4,0,0,0,0},
-			  {0,0,4,0,0,4,4,0,0,4,0,0,0,0,0,0},
-			  {0,0,0,0,0,4,4,0,0,0,4,4,0,0,0,0} };
+                          {0,0,0,0,0,4,4,0,0,0,4,4,0,0,0,0},
+                          {0,0,4,0,0,4,4,0,0,4,0,0,0,0,0,0},
+                          {0,0,0,0,0,4,4,0,0,0,4,4,0,0,0,0} };
     // Piece formant un T
     public int[][] Piece5 = { {0,5,0,0,0,5,5,0,0,5,0,0,0,0,0,0},
-			  {0,0,0,0,0,0,5,0,0,5,5,5,0,0,0,0},
-			  {0,0,0,5,0,0,5,5,0,0,0,5,0,0,0,0},
-			  {0,5,5,5,0,0,5,0,0,0,0,0,0,0,0,0} }; 
+                          {0,0,0,0,0,0,5,0,0,5,5,5,0,0,0,0},
+                          {0,0,0,5,0,0,5,5,0,0,0,5,0,0,0,0},
+                          {0,5,5,5,0,0,5,0,0,0,0,0,0,0,0,0} }; 
     // Piece formant un L inversé
     public int[][] Piece6 = { {0,0,6,0,0,0,6,0,0,6,6,0,0,0,0,0},
-			  {0,0,0,0,0,6,6,6,0,0,0,6,0,0,0,0},
-			  {0,6,6,0,0,6,0,0,0,6,0,0,0,0,0,0},
-			  {0,0,0,0,0,6,0,0,0,6,6,6,0,0,0,0} }; 
+                          {0,0,0,0,0,6,6,6,0,0,0,6,0,0,0,0},
+                          {0,6,6,0,0,6,0,0,0,6,0,0,0,0,0,0},
+                          {0,0,0,0,0,6,0,0,0,6,6,6,0,0,0,0} }; 
     // Piece formant un L
     public int[][] Piece7 = { {0,7,0,0,0,7,0,0,0,7,7,0,0,0,0,0},
-			  {0,0,0,0,0,0,0,7,0,7,7,7,0,0,0,0},
-			  {0,7,7,0,0,0,7,0,0,0,7,0,0,0,0,0},
-			  {0,0,0,0,0,7,7,7,0,7,0,0,0,0,0,0} };  
-    
+                          {0,0,0,0,0,0,0,7,0,7,7,7,0,0,0,0},
+                          {0,7,7,0,0,0,7,0,0,0,7,0,0,0,0,0},
+                          {0,0,0,0,0,7,7,7,0,7,0,0,0,0,0,0} };  
+
+    public Piece(){
+        this.x = 23;
+        this.y = 3;
+    }
     public void tirer_piece(){
         int numero = monRandom(1,7);
+        int numeroPosition = monRandom(1,4);
+        position = numeroPosition;
         switch(numero){
             case(1):
                 PieceCourante = Piece1;
@@ -82,8 +88,8 @@ public class Piece {
                 break;
         }
     }
-    
-    public void decale_gauche(int[][] grille){
+
+    public void decale_gauche(Case[][] grille){
         y--; // on simule le decalage de la piece d'une case vers la gauche, une colonne en moins
         if(bloque_gauche(grille)){
             y++;
@@ -93,8 +99,8 @@ public class Piece {
             affiche_piece(grille);
         }
     }
-    
-    public void decale_droite(int[][] grille){
+
+    public void decale_droite(Case[][] grille){
         y++;
         if(bloque_droite(grille)){
             y--;
@@ -104,8 +110,8 @@ public class Piece {
             affiche_piece(grille);
         }
     }
-    
-    public void decale_bas(int[][] grille){
+
+    public void decale_bas(Case[][] grille){
         x--;
         if(bloquer_bas(grille)){
             x++;
@@ -115,24 +121,24 @@ public class Piece {
             affiche_piece(grille);
         }
     }
-    
-    public void tourner(int[][] grille){
+
+    public void tourner(Case[][] grille){
         efface(grille);
-	int ancienne_position = position;
-	position ++;
-	if (position ==4){
+        int ancienne_position = position;
+        position ++;
+        if (position ==4){
             position=0;
         }
         if (bloque_tourner(grille)){
             position = ancienne_position;
         }
-	/*if (bloque(grille)){
+        /*if (bloque(grille)){
             position = ancienne_position;
         }*/
-	affiche_piece(grille);
+        affiche_piece(grille);
     }
-    
-    private boolean bloque_droite(int[][] grille) {
+
+    private boolean bloque_droite(Case[][] grille) {
         boolean bloquer = false;
         for (int i = 0;i<16;i++){
             if(PieceCourante[position][i] != 0){
@@ -146,7 +152,7 @@ public class Piece {
                         return true;
                     }
                     else{
-                        if(grille[x][y+colonne+1]==0){
+                        if(grille[x][y+colonne+1].getEtat()==0){
                             bloquer = false;
                         }
                         else {
@@ -159,7 +165,7 @@ public class Piece {
         return bloquer;
     }
 
-    private boolean bloque_gauche(int[][] grille) {
+    private boolean bloque_gauche(Case[][] grille) {
         boolean bloquer = false;
         for (int i = 0;i<16;i++){
             if(PieceCourante[position][i] != 0){
@@ -173,7 +179,7 @@ public class Piece {
                         return true;
                     }
                     else {
-                        if (grille[x][y+colonne-1]==0){
+                        if (grille[x][y+colonne-1].getEtat() ==0){
                             bloquer = false;
                         }
                         else {
@@ -185,8 +191,8 @@ public class Piece {
         }
         return bloquer;
     }
-    
-    private boolean bloquer_bas(int[][] grille){
+
+    private boolean bloquer_bas(Case[][] grille){
         boolean bloquer = false;
         for(int i=0;i<16;i++){
             if(PieceCourante[position][i] !=0){
@@ -196,7 +202,7 @@ public class Piece {
                     bloquer = false;
                 }
                 else{
-                    if(grille[x-ligne-1][y+colonne]==0){
+                    if(grille[x-ligne-1][y+colonne].getEtat()==0){
                             bloquer = false;
                         }
                         else{
@@ -207,14 +213,14 @@ public class Piece {
         }
         return bloquer;
     }
-    
-    public boolean bloque_tourner(int[][] grille){
+
+    public boolean bloque_tourner(Case[][] grille){
         boolean bloquer = false;
         for (int i=0;i<16;i++){
             if(PieceCourante[position][i] != 0){
                 int colonne = i%4;
                 int ligne = i/4;
-                if (grille[x-ligne][y+colonne]==0){
+                if (grille[x-ligne][y+colonne].getEtat()==0){
                     bloquer = false;
                 }
                 else{
@@ -226,13 +232,17 @@ public class Piece {
     }
 
 
-    private void affiche_piece(int[][] grille) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void affiche_piece(Case[][] grille) {
+        for(int i =0;i<16;i++){
+            int colonne = i%4;
+            int ligne = i/4;
+            
+        }
     }
 
-    private void efface(int[][] grille) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void efface(Case[][] grille) {
+        
     }
-    
-    
+
+
 }

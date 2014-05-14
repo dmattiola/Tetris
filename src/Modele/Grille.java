@@ -23,12 +23,26 @@ public class Grille {
     }
 
     private void initialiserGrille() {
-        grille = new Case[hauteur][largeur];
+        setGrille(new Case[hauteur][largeur]);
         for (int i = 0; i < hauteur; i++) {
             for (int j = 0; j < largeur; j++) {
-                grille[i][j] = new Case(i, j);
+                getGrille()[i][j] = new Case(i, j);
             }
         }
+    }
+
+    /**
+     * @return the grille
+     */
+    public Case[][] getGrille() {
+        return grille;
+    }
+
+    /**
+     * @param grille the grille to set
+     */
+    public void setGrille(Case[][] grille) {
+        this.grille = grille;
     }
 
 }

@@ -28,7 +28,7 @@ public class Tetris extends Observable implements Runnable {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       Tetris tetris = new Tetris();
+        Tetris tetris = new Tetris();
         Fenetre fenetre = new Fenetre();
         tetris.addObserver(fenetre);
         fenetre.setVisible(true);
@@ -36,7 +36,11 @@ public class Tetris extends Observable implements Runnable {
 
     @Override
     public void run() {
-        
+        while(true){
+            
+            setChanged();
+            notifyObservers();
+        }
     }
     
 }
