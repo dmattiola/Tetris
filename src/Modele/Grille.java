@@ -34,8 +34,8 @@ public class Grille {
     public Case[][] getGrille() {
         return grille;
     }
-    
-    public Case getCase(int ligne, int colonne){
+
+    public Case getCase(int ligne, int colonne) {
         return grille[ligne][colonne];
     }
 
@@ -57,22 +57,49 @@ public class Grille {
         int[] tabPiece = piece.getPiece(position);
         int ligne = x;
         int colonne = y;
-        for (int i = 0; i < 17; i++) {            
+        for (int i = 0; i < 17; i++) {
             if (tabPiece[i] != 0) {
-                this.grille[ligne][colonne] = new Case(ligne, colonne, tabPiece[i]);
+                grille[ligne][colonne].setEtat(tabPiece[i]);
             }
-            if(i%3 == 0){
+            if (i % 3 == 0) {
                 ligne++;
                 colonne = y;
-            }else{
+            } else {
                 colonne++;
-            }            
+            }
         }
 
     }
-    
-    public boolean testLigne(){
-        
+
+    public void effacerLigne(Piece piece) {
+        boolean test = true;
+        int j = 0;
+        int x = piece.getX();
+        for (int i = x; i >= 0; i--) {
+            j = 0;
+            test = true;
+            while (j < 10 && test) {
+                Case c = this.getCase(i, j);
+                if (c.getEtat() == 0) {
+                    test = false;
+                }
+                if (j == 9) {
+                    decalerLigne(i);
+                }
+                j++;
+            }
+
+        }
+    }
+
+    private void decalerLigne(int ligne) {
+        while (ligne+1 < 20) {
+            for (int i = 0; i < 9; i++) {
+                this.grille[ligne][i] = this.grille[ligne+1][i];
+            }
+            ligne++;
+        }
+
     }
 
 }

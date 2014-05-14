@@ -28,7 +28,7 @@ public class Case extends JPanel{
         super();
         this.x=x;
         this.y=y;
-        this.etat=0;        
+        this.etat=0;    
     }
     
     public Case(int x, int y, int color) {
@@ -50,6 +50,24 @@ public class Case extends JPanel{
      */
     public void setEtat(int etat) {
         this.etat = etat;
+        setBackground(attributCouleur(etat));
+    }
+    
+    public Color attributCouleur(int valeur){
+        switch(valeur){
+            case 0:
+                return Color.BLACK;
+            case 1 : 
+                return Color.BLUE;
+            case 2 :
+                return Color.GREEN;
+            case 3 :
+                return Color.RED;
+            case 4 :
+                return Color.YELLOW;
+            default :
+                return Color.BLACK;
+        }
     }
 
 }
