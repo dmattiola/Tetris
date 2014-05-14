@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package realtetris;
+package tetris;
 
 import Vue.Fenetre;
 import java.util.Observable;
@@ -13,11 +13,11 @@ import java.util.Observable;
  *
  * @author Dylan
  */
-public class RealTetris extends Observable implements Runnable {
+public class Tetris extends Observable implements Runnable {
 
     private Thread process;
     
-    public RealTetris(){
+    public Tetris(){
         if (process == null) {
   	process = new Thread(this);
   	process.start();
@@ -28,7 +28,7 @@ public class RealTetris extends Observable implements Runnable {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       RealTetris tetris = new RealTetris();
+       Tetris tetris = new Tetris();
         Fenetre fenetre = new Fenetre();
         tetris.addObserver(fenetre);
         fenetre.setVisible(true);

@@ -30,4 +30,5 @@ public class Case extends JPanel{
         this.y=y;
         this.etat=Color.black;        
     }
+
 }
