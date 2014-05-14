@@ -26,7 +26,6 @@ public class Partie extends Thread implements Runnable {
 
     public void run() {
         while (true) {
-            grille.mettreAJourGrille(this.piece);
             if(!(piece.bloquer_bas(grille.getGrille()))) {
                 try {
                     sleep(300);
@@ -36,6 +35,8 @@ public class Partie extends Thread implements Runnable {
                     Logger.getLogger(Partie.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }else{
+                grille.mettreAJourGrille(this.piece);
+                grille.effacerLigne(this.piece);
                 this.piece = new Piece();
             }
         }

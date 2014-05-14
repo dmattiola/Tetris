@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package tetris;
 
+import Modele.Partie;
 import Vue.Fenetre;
 import java.util.Observable;
 
@@ -16,14 +16,14 @@ import java.util.Observable;
 public class Tetris extends Observable implements Runnable {
 
     private Thread process;
-    
-    public Tetris(){
+
+    public Tetris() {
         if (process == null) {
-  	process = new Thread(this);
-  	process.start();
+            process = new Thread(this);
+            process.start();
         }
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -32,15 +32,17 @@ public class Tetris extends Observable implements Runnable {
         Fenetre fenetre = new Fenetre();
         tetris.addObserver(fenetre);
         fenetre.setVisible(true);
+
     }
 
     @Override
     public void run() {
-        while(true){
-            //maj
+        Partie p = new Partie();
+        p.start();
+        while (true) {
             setChanged();
             notifyObservers();
         }
     }
-    
+
 }
