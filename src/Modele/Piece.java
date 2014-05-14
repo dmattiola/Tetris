@@ -19,6 +19,22 @@ public class Piece {
     private int y;
     private int position;
     public int [][] PieceCourante =  new int [4][16];
+    
+    public int getX(){
+        return x;
+    }
+    
+    public int getY(){
+        return y;
+    }
+    
+    public int getPosition(){
+        return position;
+    }
+    
+    public int[][] getPieceCourant(){
+        return PieceCourante;
+    }
 
     // Piece formant un S
     public int[][] Piece1 = { {0,1,0,0,0,1,1,0,0,0,1,0,0,0,0,0},
@@ -59,33 +75,38 @@ public class Piece {
     public Piece(){
         this.x = 23;
         this.y = 3;
+        this.PieceCourante = tirer_piece();
+        this.position = tirer_position();
+        
     }
-    public void tirer_piece(){
-        int numero = monRandom(1,7);
-        int numeroPosition = monRandom(1,4);
-        position = numeroPosition;
+    
+    public int[] getPiece(int position){
+        return this.PieceCourante[position];
+    }
+    
+    
+    public int tirer_position(){
+        return monRandom(1,4);
+    }
+    public int[][] tirer_piece(){
+        int numero = monRandom(1,7);        
         switch(numero){
             case(1):
-                PieceCourante = Piece1;
-                break;
+                return Piece1;
             case(2):
-                PieceCourante = Piece2;
-                break;
+                return Piece2;
             case(3):
-                PieceCourante = Piece3;
-                break;
+                return Piece3;
             case(4):
-                PieceCourante = Piece4;
-                break;
+                return Piece4;
             case(5):
-                PieceCourante = Piece5;
-                break;
+                return Piece5;
             case(6):
-                PieceCourante = Piece6;
-                break;
+                return Piece6;
             case(7):
-                PieceCourante = Piece7;
-                break;
+                return Piece7;
+            default:
+                return Piece1;
         }
     }
 
@@ -192,7 +213,7 @@ public class Piece {
         return bloquer;
     }
 
-    private boolean bloquer_bas(Case[][] grille){
+    boolean bloquer_bas(Case[][] grille){
         boolean bloquer = false;
         for(int i=0;i<16;i++){
             if(PieceCourante[position][i] !=0){

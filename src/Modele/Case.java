@@ -30,6 +30,13 @@ public class Case extends JPanel{
         this.y=y;
         this.etat=0;        
     }
+    
+    public Case(int x, int y, int color) {
+        super();
+        this.x=x;
+        this.y=y;
+        this.etat=color;        
+    }
 
     /**
      * @return the etat
