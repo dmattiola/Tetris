@@ -6,17 +6,41 @@
 
 package tetris;
 
+import Vue.Fenetre;
+import java.util.Observable;
+
 /**
  *
- * @author Jérémy
+ * @author Dylan
  */
-public class Tetris {
+public class Tetris extends Observable implements Runnable {
 
+    private Thread process;
+    
+    public Tetris(){
+        if (process == null) {
+  	process = new Thread(this);
+  	process.start();
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Tetris tetris = new Tetris();
+        Fenetre fenetre = new Fenetre();
+        tetris.addObserver(fenetre);
+        fenetre.setVisible(true);
+    }
+
+    @Override
+    public void run() {
+        while(true){
+            
+            setChanged();
+            notifyObservers();
+        }
     }
     
 }
