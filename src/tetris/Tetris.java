@@ -37,7 +37,7 @@ public class Tetris extends Observable implements Runnable {
     @Override
     public void run() {
         while(true){
-            
+            //maj
             setChanged();
             notifyObservers();
         }

@@ -20,12 +20,14 @@ import javax.swing.border.Border;
  */
 public class Fenetre extends JFrame implements Observer{
     
+    private Case[][] grille;
+    private JComponent plateau;
     /**
      * Creates new form Fenetre
      */
      public Fenetre() {
          super();
-         build();
+         plateau = build();
          addWindowListener(new WindowAdapter() {
              @Override
              public void windowClosing(WindowEvent arg0) {
@@ -35,7 +37,7 @@ public class Fenetre extends JFrame implements Observer{
          });
      }
  
-     public void build(){
+     public JComponent build(){
          JMenuBar jm = new JMenuBar();
          JMenu m1 = new JMenu("Partie");
          JMenu m2 = new JMenu("Help");
@@ -58,13 +60,13 @@ public class Fenetre extends JFrame implements Observer{
         }       
         JComponent Bouttons = new JPanel(new FlowLayout());
         Button gauche = new Button("Gauche");
-                                                                gauche.addKeyListener(new ControleurClavier());
+        gauche.addKeyListener(new ControleurClavier());
         Button droite = new Button("Droite");
-                                                                droite.addKeyListener(new ControleurClavier());
+        droite.addKeyListener(new ControleurClavier());
         Button bas = new Button("Bas");
-                                                                bas.addKeyListener(new ControleurClavier());
+        bas.addKeyListener(new ControleurClavier());
         Button tourner = new Button("Tourner");
-                                                                tourner.addKeyListener(new ControleurClavier());
+        tourner.addKeyListener(new ControleurClavier());
         Bouttons.add(gauche);
         Bouttons.add(droite);
         Bouttons.add(bas);
@@ -75,6 +77,7 @@ public class Fenetre extends JFrame implements Observer{
         principal.add(plateau, "Center");
         principal.setBorder(blackline);
         this.add(principal);
+        return plateau;
     }
     
     
@@ -138,6 +141,8 @@ public class Fenetre extends JFrame implements Observer{
 
     @Override
     public void update(Observable o, Object o1) {
-        
+        for(int i=0;i<200;i++){
+            //((Case)plateau.getComponent(i));
+        }
     }
 }
