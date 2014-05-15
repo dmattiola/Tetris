@@ -14,9 +14,9 @@ import java.util.Observable;
  *
  * @author Dylan
  */
-public class Tetris extends Observable implements Runnable{
+public class Tetris extends Observable implements Runnable {
 
-     private Thread process;
+    private Thread process;
 
     public Tetris() {
         if (process == null) {
@@ -39,10 +39,11 @@ public class Tetris extends Observable implements Runnable{
 
     @Override
     public void run() {
+        
         while (true) {
             setChanged();
             notifyObservers();
         }
     }
-
+    
 }
