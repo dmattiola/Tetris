@@ -6,6 +6,7 @@
 
 package Tetris;
 
+import Controleur.ControleurClavier;
 import Modele.Partie;
 import Vue.Fenetre;
 import java.util.Observable;
@@ -32,14 +33,16 @@ public class Tetris extends Observable implements Runnable {
         Tetris tetris = new Tetris();
         Partie p = new Partie();
         Fenetre fenetre = new Fenetre(p);
+        ControleurClavier controleur = new ControleurClavier(fenetre,p);
+        fenetre.addKeyListener(controleur);
         tetris.addObserver(fenetre);
         fenetre.setVisible(true);
-        p.start();
+        p.start();        
+        
     }
 
     @Override
     public void run() {
-        
         while (true) {
             setChanged();
             notifyObservers();

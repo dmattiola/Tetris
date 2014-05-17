@@ -6,11 +6,9 @@
 
 package Controleur;
 
-import Modele.Case;
-import Modele.Piece;
+import Modele.Partie;
 import Vue.Fenetre;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 
 /**
  *
@@ -18,30 +16,34 @@ import java.awt.event.KeyListener;
  */
 public class ControleurClavier implements KeyListener{
     
-    Case[][] grille;
     Fenetre fenetre;
-    Piece PieceCourante;
+    Partie p;
 
-    public void keyPressed(KeyEvent ke) {
-        switch(ke.getKeyCode()){
-            case (KeyEvent.VK_LEFT) : 
-                if (PieceCourante != null){
-                    PieceCourante.decale_gauche(grille);
+    public ControleurClavier(Fenetre fenetre,Partie p) {
+        this.fenetre = fenetre;
+        this.p=p;
+    }
+
+    public void keyPressed(KeyEvent e) {
+        switch(e.getKeyCode()){
+            case (KeyEvent.VK_LEFT) :
+                if (p.getPieceCourante() != null){
+                    this.p.getGrille().decale_gauche(p.getPieceCourante());
                 }
 		break;
             case (KeyEvent.VK_RIGHT) : 
-                if (PieceCourante != null){
-                    PieceCourante.decale_droite(grille);
+                if (p.getPieceCourante() != null){
+                    this.p.getGrille().decale_droite(p.getPieceCourante());
                 }
                 break;
             case (KeyEvent.VK_UP) :
-                if (PieceCourante != null){
-                    PieceCourante.tourner(grille);
+                if (p.getPieceCourante() != null){
+                    this.p.getGrille().tourner(p.getPieceCourante());
                 }
                 break;
             case (KeyEvent.VK_DOWN) :
-                if (PieceCourante != null){
-                    PieceCourante.decale_bas(grille);
+                if (p.getPieceCourante() != null){
+                    this.p.getGrille().decale_bas(p.getPieceCourante());
                 }
                 break;
             default : 
@@ -51,6 +53,7 @@ public class ControleurClavier implements KeyListener{
 
     public void keyReleased(KeyEvent ke) {}
     public void keyTyped(KeyEvent ke) {}
+
 
 }
 

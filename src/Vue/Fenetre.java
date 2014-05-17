@@ -6,6 +6,7 @@
 
 package Vue;
 
+import Controleur.ControleurClavier;
 import Modele.Case;
 import Modele.Partie;
 import java.awt.*;
@@ -44,13 +45,16 @@ public class Fenetre extends JFrame implements Observer {
                  System.exit(0);
              }
          });
+       /* ControleurClavier controleur = new ControleurClavier(this,p);
+        addKeyListener(controleur);*/
+        
     }
 
      private void build() {
          
          // Mise en place de la fenetre principal
          this.setTitle("Jeu du Tetris");
-         this.setSize(450,500);
+         this.setSize(430,500);
          
          // Mise en place du menu
          jMenu1.setText("Partie");
@@ -91,9 +95,9 @@ public class Fenetre extends JFrame implements Observer {
          // Mise en place du Panel bouttons
         Button gauche = new Button("Gauche");
         Button droite = new Button("Droite");
-        Button bas = new Button("Bas");
+        Button bas = new Button("Bas"); 
         Button tourner = new Button("Tourner");
-        GridBagConstraints gbc = new GridBagConstraints();
+        /*GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
         bouttons.add(gauche,gbc);
@@ -103,7 +107,7 @@ public class Fenetre extends JFrame implements Observer {
         gbc.gridy = 1;
         bouttons.add(bas,gbc);
         gbc.gridx = 0;
-        bouttons.add(tourner,gbc);
+        bouttons.add(tourner,gbc);*/
         
         // Mise en place de la grille affichant la pièce suivante
         for (int i =0;i<16;i++){
@@ -121,17 +125,16 @@ public class Fenetre extends JFrame implements Observer {
     public void update(Observable o, Object o1) {
         for (int i = 0; i < 20; i++) {
             for (int j = 0; j < 10; j++) {
-                ((Case)plateau.getComponent(i*10+j)).ColorierCase(p.getGrille().getGrille()[i][j].getEtat());           
+                ((Case)plateau.getComponent(i*10+j)).ColorierCase(p.getGrille().getGrille()[i+3][j].getEtat());           
             }
         }
-        /*int h=0;
-        for(int i = 0;i<4;i++){
-            for(int j=0;j<4;j++){
-                ((Case)PieceSuivante.getComponent(i*4+j)).ColorierCase(p.getPieceSuivante().getPieceCourante()[p.getPieceSuivante().getPosition()][h]);
-            h++;
+        for (int i =0;i<4;i++){
+            for (int j=0;j<4;j++){
+                ((Case)PieceSuivante.getComponent(i*4+j)).ColorierCase(p.getPieceSuivante().getPieceCourante()[p.getPieceSuivante().getPosition()][i*4+j]);
             }
-        }*/
+        }
     }
+
     
     /**
      * This method is called from within the constructor to initialize the form.

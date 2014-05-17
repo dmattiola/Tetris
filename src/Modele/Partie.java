@@ -21,24 +21,27 @@ public class Partie extends Thread implements Runnable {
     private Grille grille;
 
     public Partie() {
-        pieceCourante = new Piece();
-        pieceSuivante = new Piece();
-        grille = new Grille();
+        this.pieceCourante = new Piece();
+        this.pieceSuivante = new Piece();
+        this.grille = new Grille();
     }
 
     public void run() {
         while (true) {
-            if(!(pieceCourante.bloquer_bas(getGrille().getGrille()))) {
+            this.grille.ajoute_piece(this.getPieceCourante());
+            
+            if(!(this.grille.bloquer_bas(this.pieceCourante))) {
                 try {
-                    sleep(1000);
-                    pieceCourante.decale_bas(getGrille().getGrille());
-                    pieceCourante.efface_ligne(getGrille().getGrille());
+                    this.grille.ajoute_piece(this.getPieceCourante());
+                    Thread.currentThread().sleep(1000);
+                    this.grille.decale_bas(this.getPieceCourante());
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Partie.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }else{
-                pieceCourante.efface_ligne(getGrille().getGrille());
-                this.pieceCourante = getPieceSuivante();
+                this.grille.ajoute_piece(this.getPieceCourante());
+                this.grille.efface_ligne(this.getPieceCourante());
+                this.setPieceCourante(this.getPieceSuivante());
                 this.setPieceSuivante(new Piece());
             }
         }
@@ -70,6 +73,20 @@ public class Partie extends Thread implements Runnable {
      */
     public void setPieceSuivante(Piece pieceSuivante) {
         this.pieceSuivante = pieceSuivante;
+    }
+
+    /**
+     * @return the pieceCourante
+     */
+    public Piece getPieceCourante() {
+        return pieceCourante;
+    }
+
+    /**
+     * @param pieceCourante the pieceCourante to set
+     */
+    public void setPieceCourante(Piece pieceCourante) {
+        this.pieceCourante = pieceCourante;
     }
     
 }
