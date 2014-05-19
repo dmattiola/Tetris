@@ -17,11 +17,13 @@ public class Grille extends Observable{
     private Case grille[][];
     private final int hauteur = 23;
     private final int largeur = 10;
+    private int level;
     private int score;
 
     public Grille() {
         initialiserGrille();
         this.score = 0;
+        this.level =0;
     }
 
     private void initialiserGrille() {
@@ -206,6 +208,7 @@ public class Grille extends Observable{
                     setScore(getScore()+1);
                     supprimer_ligne(p.getX()+ligne);
                     decaler_lignes(p.getX()+ligne);
+                    setLevel(getScore()/2);
                 } 
             }   
         }
@@ -238,6 +241,20 @@ public class Grille extends Observable{
      */
     public void setScore(int score) {
         this.score = score;
+    }
+
+    /**
+     * @return the level
+     */
+    public int getLevel() {
+        return level;
+    }
+
+    /**
+     * @param level the level to set
+     */
+    public void setLevel(int level) {
+        this.level = level;
     }
 
 }

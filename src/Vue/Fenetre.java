@@ -6,7 +6,6 @@
 
 package Vue;
 
-import Controleur.ControleurClavier;
 import Modele.Case;
 import Modele.Partie;
 import java.awt.*;
@@ -28,7 +27,8 @@ public class Fenetre extends JFrame implements Observer {
     private JPanel plateau = new JPanel();
     private JPanel menu = new JPanel();
     private JPanel principal = new JPanel();
-    private JPanel bouttons = new JPanel();
+    private JLabel score = new JLabel();
+    private JLabel level = new JLabel();
     
     private Partie p;
     /**
@@ -71,7 +71,6 @@ public class Fenetre extends JFrame implements Observer {
          principal.setLayout(new BorderLayout());
          plateau.setLayout(new GridLayout(20,10));
          menu.setLayout(new GridLayout(4,1));
-         bouttons.setLayout(new GridBagLayout());
          PieceSuivante.setLayout(new GridLayout(4,4)); 
          
          // Positionnement des Panels dans le Panel principal
@@ -81,9 +80,7 @@ public class Fenetre extends JFrame implements Observer {
          
          // Positionnement dans le Panel "menu"
          menu.add(new JLabel("Piece Suivante"));
-         menu.add(PieceSuivante);
-         menu.add(bouttons);
-        
+         menu.add(PieceSuivante);  
         
          // Mise en place du plateau / grille de jeu
          for (int i = 0; i<200;i++){
@@ -92,23 +89,16 @@ public class Fenetre extends JFrame implements Observer {
             plateau.add(ptest);
          }
          
-         // Mise en place du Panel bouttons
-        Button gauche = new Button("Gauche");
-        Button droite = new Button("Droite");
-        Button bas = new Button("Bas"); 
-        Button tourner = new Button("Tourner");
-        /*GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        bouttons.add(gauche,gbc);
-        gbc.gridy = 2;
-        bouttons.add(droite,gbc);
-        gbc.gridx = 2;
-        gbc.gridy = 1;
-        bouttons.add(bas,gbc);
-        gbc.gridx = 0;
-        bouttons.add(tourner,gbc);*/
-        
+         // Mise en place du score et du level
+         score.setText("0");
+         level.setText("1");
+         JLabel lb_score = new JLabel("Score");
+         JLabel lb_level = new JLabel("Level");
+         menu.add(lb_level);
+         menu.add(level);
+         menu.add(lb_score);
+         menu.add(score);
+         
         // Mise en place de la grille affichant la pièce suivante
         for (int i =0;i<16;i++){
             JComponent ptest = new Case();
@@ -133,6 +123,8 @@ public class Fenetre extends JFrame implements Observer {
                 ((Case)PieceSuivante.getComponent(i*4+j)).ColorierCase(p.getPieceSuivante().getPieceCourante()[p.getPieceSuivante().getPosition()][i*4+j]);
             }
         }
+        score.setText(Integer.toString(p.getGrille().getScore()));
+        level.setText(Integer.toString(p.getGrille().getLevel()));
     }
 
     

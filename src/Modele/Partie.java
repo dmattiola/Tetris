@@ -33,7 +33,8 @@ public class Partie extends Thread implements Runnable {
             if(!(this.grille.bloquer_bas(this.pieceCourante))) {
                 try {
                     this.grille.ajoute_piece(this.getPieceCourante());
-                    Thread.currentThread().sleep(1000);
+                    int temps = 1000-100*this.grille.getLevel();
+                    Thread.currentThread().sleep(temps);
                     this.grille.decale_bas(this.getPieceCourante());
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Partie.class.getName()).log(Level.SEVERE, null, ex);
@@ -88,5 +89,6 @@ public class Partie extends Thread implements Runnable {
     public void setPieceCourante(Piece pieceCourante) {
         this.pieceCourante = pieceCourante;
     }
+
     
 }
