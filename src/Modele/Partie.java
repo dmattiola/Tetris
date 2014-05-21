@@ -3,12 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Modele;
 
-import static java.lang.Thread.sleep;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.*;
 
 /**
  *
@@ -19,31 +16,39 @@ public class Partie extends Thread implements Runnable {
     private Piece pieceCourante;
     private Piece pieceSuivante;
     private Grille grille;
+    private boolean mettreEnPause;
+    private boolean fin;
 
     public Partie() {
         this.pieceCourante = new Piece();
         this.pieceSuivante = new Piece();
         this.grille = new Grille();
+        this.mettreEnPause = false;
+        this.fin = false;
     }
 
     public void run() {
-        while (true) {
+        while (!this.isFin()) {
             this.grille.ajoute_piece(this.getPieceCourante());
-            
-            if(!(this.grille.bloquer_bas(this.pieceCourante))) {
+            if (!(this.grille.bloquer_bas(this.pieceCourante))) {
                 try {
                     this.grille.ajoute_piece(this.getPieceCourante());
-                    int temps = 1000-100*this.grille.getLevel();
-                    Thread.currentThread().sleep(temps);
                     this.grille.decale_bas(this.getPieceCourante());
+                    int temps = 1000 - 50 * this.grille.getLevel();
+                    Thread.currentThread().sleep(temps);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Partie.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }else{
-                this.grille.ajoute_piece(this.getPieceCourante());
-                this.grille.efface_ligne(this.getPieceCourante());
-                this.setPieceCourante(this.getPieceSuivante());
-                this.setPieceSuivante(new Piece());
+            } else {
+                if (!this.grille.fin_partie()) {
+                    this.grille.ajoute_piece(this.getPieceCourante());
+                    this.grille.efface_ligne(this.getPieceCourante());
+                    this.setPieceCourante(this.getPieceSuivante());
+                    this.setPieceSuivante(new Piece());
+                }
+                else{
+                    this.setFin(this.grille.fin_partie());
+                }
             }
         }
     }
@@ -90,5 +95,31 @@ public class Partie extends Thread implements Runnable {
         this.pieceCourante = pieceCourante;
     }
 
-    
+    /**
+     * @return the mettreEnPause
+     */
+    public boolean isMettreEnPause() {
+        return mettreEnPause;
+    }
+
+    /**
+     * @param mettreEnPause the mettreEnPause to set
+     */
+    public void setMettreEnPause(boolean mettreEnPause) {
+        this.mettreEnPause = mettreEnPause;
+    }
+
+    /**
+     * @return the fin
+     */
+    public boolean isFin() {
+        return fin;
+    }
+
+    /**
+     * @param fin the fin to set
+     */
+    public void setFin(boolean fin) {
+        this.fin = fin;
+    }
 }

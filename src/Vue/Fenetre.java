@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Vue;
 
 import Modele.Case;
@@ -29,8 +28,9 @@ public class Fenetre extends JFrame implements Observer {
     private JPanel principal = new JPanel();
     private JLabel score = new JLabel();
     private JLabel level = new JLabel();
-    
+
     private Partie p;
+
     /**
      * Creates new form Fenetre
      */
@@ -39,95 +39,101 @@ public class Fenetre extends JFrame implements Observer {
         build();
         this.p = p;
         addWindowListener(new WindowAdapter() {
-             @Override
-             public void windowClosing(WindowEvent arg0) {
-                 super.windowClosing(arg0);
-                 System.exit(0);
-             }
-         });
-       /* ControleurClavier controleur = new ControleurClavier(this,p);
-        addKeyListener(controleur);*/
-        
+            @Override
+            public void windowClosing(WindowEvent arg0) {
+                super.windowClosing(arg0);
+                System.exit(0);
+            }
+        });
     }
 
-     private void build() {
-         
-         // Mise en place de la fenetre principal
-         this.setTitle("Jeu du Tetris");
-         this.setSize(430,500);
-         
-         // Mise en place du menu
-         jMenu1.setText("Partie");
-         jMenu2.setText("Help");
-         menuBar.add(jMenu1);
-         menuBar.add(jMenu2);
-         this.setJMenuBar(menuBar);
-         
-         // Creation des lignes de séparation
-         Border whiteline = BorderFactory.createLineBorder(Color.white,1);
-         Border blackline = BorderFactory.createLineBorder(Color.black,1);
-         
-         // Mise en place des Panels
-         principal.setLayout(new BorderLayout());
-         plateau.setLayout(new GridLayout(20,10));
-         menu.setLayout(new GridLayout(4,1));
-         PieceSuivante.setLayout(new GridLayout(4,4)); 
-         
-         // Positionnement des Panels dans le Panel principal
-         principal.add(menu,"East");
-         principal.add(plateau, "Center");
-         principal.setBorder(blackline);
-         
-         // Positionnement dans le Panel "menu"
-         menu.add(new JLabel("Piece Suivante"));
-         menu.add(PieceSuivante);  
+    private void build() {
+
+        // Mise en place de la fenetre principal
+        this.setTitle("Jeu du Tetris");
+        this.setSize(430, 500);
+
+        // Mise en place du menu
+        jMenu1.setText("Partie");
+        jMenu2.setText("Help");
+        menuBar.add(jMenu1);
+        menuBar.add(jMenu2);
+        this.setJMenuBar(menuBar);
+
+        // Creation des lignes de séparation
+        Border whiteline = BorderFactory.createLineBorder(Color.white, 1);
+        Border blackline = BorderFactory.createLineBorder(Color.black, 1);
+
+        // Mise en place des Panels
+        principal.setLayout(new BorderLayout());
+        plateau.setLayout(new GridLayout(20, 10));
+        menu.setLayout(new GridLayout(4, 1));
+        PieceSuivante.setLayout(new GridLayout(4, 4));
+
+        // Positionnement des Panels dans le Panel principal
+        principal.add(menu, "East");
+        principal.add(plateau, "Center");
+        principal.setBorder(blackline);
+
+        // Positionnement dans le Panel "menu"
+        menu.add(new JLabel("Piece Suivante"));
+        menu.add(PieceSuivante);
         
-         // Mise en place du plateau / grille de jeu
-         for (int i = 0; i<200;i++){
-            JComponent ptest = new Case();
-            ptest.setBorder(whiteline);
-            plateau.add(ptest);
-         }
-         
-         // Mise en place du score et du level
-         score.setText("0");
-         level.setText("1");
-         JLabel lb_score = new JLabel("Score");
-         JLabel lb_level = new JLabel("Level");
-         menu.add(lb_level);
-         menu.add(level);
-         menu.add(lb_score);
-         menu.add(score);
-         
+        
+       
         // Mise en place de la grille affichant la pièce suivante
-        for (int i =0;i<16;i++){
+        for (int i = 0; i < 16; i++) {
             JComponent ptest = new Case();
             ptest.setBorder(whiteline);
             PieceSuivante.add(ptest);
         }
+
+        // Mise en place du score et du level
+        score.setText("0");
+        level.setText("0");
+        JLabel lb_score = new JLabel("Score : ");
+        JLabel lb_level = new JLabel("Level : ");
+        menu.add(lb_level);
+        menu.add(level);
+        menu.add(lb_score);
+        menu.add(score);
+        
+        // Mise en place du plateau / grille de jeu
+        for (int i = 0; i < 200; i++) {
+            JComponent ptest = new Case();
+            ptest.setBorder(whiteline);
+            plateau.add(ptest);
+        }
+
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.add(principal);
     }
-     
-    
+
     @Override
     public void update(Observable o, Object o1) {
         for (int i = 0; i < 20; i++) {
             for (int j = 0; j < 10; j++) {
-                ((Case)plateau.getComponent(i*10+j)).ColorierCase(p.getGrille().getGrille()[i+3][j].getEtat());           
+                ((Case) plateau.getComponent(i * 10 + j)).ColorierCase(p.getGrille().getGrille()[i + 4][j].getEtat());
             }
         }
-        for (int i =0;i<4;i++){
-            for (int j=0;j<4;j++){
-                ((Case)PieceSuivante.getComponent(i*4+j)).ColorierCase(p.getPieceSuivante().getPieceCourante()[p.getPieceSuivante().getPosition()][i*4+j]);
+        if (!p.isFin()) {
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    ((Case) PieceSuivante.getComponent(i * 4 + j)).ColorierCase(p.getPieceSuivante().getPieceCourante()[p.getPieceSuivante().getPosition()][i * 4 + j]);
+                }
+            }
+        } else {
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    ((Case) PieceSuivante.getComponent(i * 4 + j)).ColorierCase(0);
+                }
             }
         }
         score.setText(Integer.toString(p.getGrille().getScore()));
         level.setText(Integer.toString(p.getGrille().getLevel()));
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -155,7 +161,4 @@ public class Fenetre extends JFrame implements Observer {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
-   
-
-    
 }

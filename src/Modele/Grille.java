@@ -15,15 +15,17 @@ import java.util.Observable;
 public class Grille extends Observable{
     
     private Case grille[][];
-    private final int hauteur = 23;
+    private final int hauteur = 24;
     private final int largeur = 10;
     private int level;
     private int score;
+    private boolean pause;
 
     public Grille() {
         initialiserGrille();
         this.score = 0;
         this.level =0;
+        this.pause = false;
     }
 
     private void initialiserGrille() {
@@ -69,10 +71,11 @@ public class Grille extends Observable{
     }
 
     public void decale_bas(Piece p) {
+        enlever_piece(p);
         if (!bloquer_bas(p)) {
-            p.setX(p.getX() + 1);
-            ajoute_piece(p);
+            p.setX(p.getX() + 1);  
         }
+        ajoute_piece(p);
     }
 
     public void tourner(Piece p) {
@@ -93,11 +96,11 @@ public class Grille extends Observable{
         for (int i = 0; i < 16; i++) {
             if (p.getPieceCourante()[p.getPosition()][i] != 0) {
                 int colonne = i % 4;
-                int ligne = i / 4;
+                int ligne = i/4;
                     if (colonne + p.getY() > 9) {
                         return true;
                     } else {
-                        if (this.grille[p.getX()][p.getY() + colonne].getEtat() == 0) {
+                        if (this.grille[p.getX()+ligne][p.getY() + colonne].getEtat() == 0) {
                             bloquer = false;
                         } else {
                             return true;
@@ -113,11 +116,11 @@ public class Grille extends Observable{
         for (int i = 0; i < 16; i++) {
             if (p.getPieceCourante()[p.getPosition()][i] != 0) {
                 int colonne = i % 4;
-                int ligne = i / 4;
+                int ligne = i/4;
                     if (colonne + p.getY() < 0) {
                         return true;
                     } else {
-                        if (this.grille[p.getX()][p.getY() + colonne].getEtat() == 0) {
+                        if (this.grille[p.getX()+ligne][p.getY() + colonne].getEtat() == 0) {
                             bloquer = false;
                         } else {
                             return true;
@@ -135,7 +138,7 @@ public class Grille extends Observable{
             if (p.getPieceCourante()[p.getPosition()][i] != 0) {
                 int colonne = i % 4;
                 int ligne = i / 4;
-                if (p.getX() + ligne + 1 > 22) {
+                if (p.getX() + ligne + 1 > 23) {
                     return true;
                 } else {
                     if (this.grille[p.getX() + ligne + 1][p.getY() + colonne].getEtat() == 0) {
@@ -193,9 +196,8 @@ public class Grille extends Observable{
     
     public void efface_ligne(Piece p) {
         for (int i=0;i<16;i++){
-            int colonne = i % 4;
             int ligne = i / 4;
-            if(p.getX()+ligne<23){
+            if(p.getX()+ligne<24){
                 boolean rempli = true; // on part du principe que la ligne est rempli
                 int j = 0;
                 while(j<10 && rempli){ // des qu'une case n'est pas occupée, la boucle s'arrete 
@@ -208,7 +210,7 @@ public class Grille extends Observable{
                     setScore(getScore()+1);
                     supprimer_ligne(p.getX()+ligne);
                     decaler_lignes(p.getX()+ligne);
-                    setLevel(getScore()/2);
+                    setLevel(getScore()/5);
                 } 
             }   
         }
@@ -225,8 +227,18 @@ public class Grille extends Observable{
             for(int j = 0;j<10;j++){
                 this.grille[ligne-i][j].setEtat(this.grille[ligne-i-1][j].getEtat());
             }
-     
         }
+    }
+    
+    public boolean fin_partie(){
+        for(int i = 0;i<3;i++){
+            for(int j = 0;j<10;j++){
+                if (this.grille[i][j].getEtat() != 0){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**

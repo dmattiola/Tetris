@@ -38,7 +38,6 @@ public class Tetris extends Observable implements Runnable {
         tetris.addObserver(fenetre);
         fenetre.setVisible(true);
         p.start();        
-        
     }
 
     @Override
