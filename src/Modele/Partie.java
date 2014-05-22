@@ -48,6 +48,8 @@ public class Partie extends Thread implements Runnable {
                 }
                 else{
                     this.setFin(this.grille.fin_partie());
+                    this.setPieceCourante(null);
+                    Thread.currentThread().interrupt();
                 }
             }
         }

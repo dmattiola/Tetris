@@ -5,8 +5,10 @@
  */
 package Vue;
 
+import Controleur.ControleurClavier;
 import Modele.Case;
 import Modele.Partie;
+import Tetris.Tetris;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -31,6 +33,7 @@ public class Fenetre extends JFrame implements Observer {
 
     private Partie p;
 
+
     /**
      * Creates new form Fenetre
      */
@@ -54,8 +57,23 @@ public class Fenetre extends JFrame implements Observer {
         this.setSize(430, 500);
 
         // Mise en place du menu
-        jMenu1.setText("Partie");
-        jMenu2.setText("Help");
+        jMenu1.setText("Jeu");
+        JMenuItem item1 = new JMenuItem("Nouveau Jeu");
+        item1.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent arg0) { 
+                Tetris tetris = new Tetris();
+        Partie p = new Partie();
+        Fenetre fenetre = new Fenetre(p);
+        ControleurClavier controleur = new ControleurClavier(fenetre,p);
+        fenetre.addKeyListener(controleur);
+        tetris.addObserver(fenetre);
+        fenetre.setVisible(true);
+        p.start();  
+            }        
+        });
+        jMenu1.add(item1);
+        jMenu2.setText("Pause");
         menuBar.add(jMenu1);
         menuBar.add(jMenu2);
         this.setJMenuBar(menuBar);
@@ -132,7 +150,12 @@ public class Fenetre extends JFrame implements Observer {
         }
         score.setText(Integer.toString(p.getGrille().getScore()));
         level.setText(Integer.toString(p.getGrille().getLevel()));
-    }
+      if(p.isFin()){
+        //Boîte du message d'erreur
+        JOptionPane.showMessageDialog(null, "Fin de partie \nScore : "+p.getGrille().getScore(), "GAME OVER", JOptionPane.ERROR_MESSAGE);
+        p.setFin(!p.isFin());
+        }
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.
