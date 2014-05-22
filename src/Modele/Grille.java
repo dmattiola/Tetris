@@ -19,13 +19,13 @@ public class Grille extends Observable{
     private final int largeur = 10;
     private int level;
     private int score;
-    private final boolean pause;
+    private int nbligne;
 
     public Grille() {
         initialiserGrille();
         this.score = 0;
         this.level =0;
-        this.pause = false;
+        this.nbligne = 0;
     }
 
     private void initialiserGrille() {
@@ -207,10 +207,11 @@ public class Grille extends Observable{
                     j++;
                 }
                 if(rempli){
-                    setScore(getScore()+1);
+                    setNbligne(getNbligne()+1);
+                    setScore(getScore()+5*(getLevel()+1));
                     supprimer_ligne(p.getX()+ligne);
                     decaler_lignes(p.getX()+ligne);
-                    setLevel(getScore()/5);
+                    setLevel(getNbligne()/5);
                 } 
             }   
         }
@@ -267,6 +268,20 @@ public class Grille extends Observable{
      */
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    /**
+     * @return the nbligne
+     */
+    public int getNbligne() {
+        return nbligne;
+    }
+
+    /**
+     * @param nbligne the nbligne to set
+     */
+    public void setNbligne(int nbligne) {
+        this.nbligne = nbligne;
     }
 
 }

@@ -21,21 +21,23 @@ import javax.swing.border.*;
  */
 public class Fenetre extends JFrame implements Observer {
 
-    private JPanel PieceSuivante = new JPanel();
-    private JMenu jMenu1 = new JMenu();
-    private JMenu jMenu2 = new JMenu();
-    private JMenuBar menuBar = new JMenuBar();
-    private JPanel plateau = new JPanel();
-    private JPanel menu = new JPanel();
-    private JPanel principal = new JPanel();
-    private JLabel score = new JLabel();
-    private JLabel level = new JLabel();
+    private final JPanel PieceSuivante = new JPanel();
+    private final JMenu jMenu1 = new JMenu();
+    private final JMenu jMenu2 = new JMenu();
+    private final JMenuBar menuBar = new JMenuBar();
+    private final JPanel plateau = new JPanel();
+    private final JPanel menu = new JPanel();
+    private final JPanel principal = new JPanel();
+    private final JLabel score = new JLabel();
+    private final JLabel level = new JLabel();
+    private final JLabel nbligne = new JLabel();
 
-    private Partie p;
-
+    private final Partie p;
 
     /**
      * Creates new form Fenetre
+     *
+     * @param p
      */
     public Fenetre(Partie p) {
         super();
@@ -59,18 +61,19 @@ public class Fenetre extends JFrame implements Observer {
         // Mise en place du menu
         jMenu1.setText("Jeu");
         JMenuItem item1 = new JMenuItem("Nouveau Jeu");
-        item1.addActionListener(new ActionListener(){
+        item1.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent arg0) { 
+            public void actionPerformed(ActionEvent arg0) {
+                Thread.currentThread().interrupt();
                 Tetris tetris = new Tetris();
-        Partie p = new Partie();
-        Fenetre fenetre = new Fenetre(p);
-        ControleurClavier controleur = new ControleurClavier(fenetre,p);
-        fenetre.addKeyListener(controleur);
-        tetris.addObserver(fenetre);
-        fenetre.setVisible(true);
-        p.start();  
-            }        
+                Partie p = new Partie();
+                Fenetre fenetre = new Fenetre(p);
+                ControleurClavier controleur = new ControleurClavier(fenetre, p);
+                fenetre.addKeyListener(controleur);
+                tetris.addObserver(fenetre);
+                fenetre.setVisible(true);
+                p.start();
+            }
         });
         jMenu1.add(item1);
         jMenu2.setText("Pause");
@@ -96,9 +99,7 @@ public class Fenetre extends JFrame implements Observer {
         // Positionnement dans le Panel "menu"
         menu.add(new JLabel("Piece Suivante"));
         menu.add(PieceSuivante);
-        
-        
-       
+
         // Mise en place de la grille affichant la pièce suivante
         for (int i = 0; i < 16; i++) {
             JComponent ptest = new Case();
@@ -108,14 +109,18 @@ public class Fenetre extends JFrame implements Observer {
 
         // Mise en place du score et du level
         score.setText("0");
-        level.setText("0");
+        level.setText("1");
+        nbligne.setText("0");
         JLabel lb_score = new JLabel("Score : ");
         JLabel lb_level = new JLabel("Level : ");
+        JLabel lb_ligne = new JLabel("Lignes : ");
         menu.add(lb_level);
         menu.add(level);
         menu.add(lb_score);
         menu.add(score);
-        
+        menu.add(lb_ligne);
+        menu.add(nbligne);
+
         // Mise en place du plateau / grille de jeu
         for (int i = 0; i < 200; i++) {
             JComponent ptest = new Case();
@@ -130,12 +135,12 @@ public class Fenetre extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object o1) {
-        for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 10; j++) {
-                ((Case) plateau.getComponent(i * 10 + j)).ColorierCase(p.getGrille().getGrille()[i + 4][j].getEtat());
-            }
-        }
         if (!p.isFin()) {
+            for (int i = 0; i < 20; i++) {
+                for (int j = 0; j < 10; j++) {
+                    ((Case) plateau.getComponent(i * 10 + j)).ColorierCase(p.getGrille().getGrille()[i + 4][j].getEtat());
+                }
+            }
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 4; j++) {
                     ((Case) PieceSuivante.getComponent(i * 4 + j)).ColorierCase(p.getPieceSuivante().getPieceCourante()[p.getPieceSuivante().getPosition()][i * 4 + j]);
@@ -147,18 +152,21 @@ public class Fenetre extends JFrame implements Observer {
                     ((Case) PieceSuivante.getComponent(i * 4 + j)).ColorierCase(0);
                 }
             }
+            for (int i = 0; i < 20; i++) {
+                for (int j = 0; j < 10; j++) {
+                    if ((i == 4 && j == 1) || (i == 4 && j == 2)) {
+                        ((Case) plateau.getComponent(i * 10 + j)).ColorierCase(2);
+                    }
+                    ((Case) plateau.getComponent(i * 10 + j)).ColorierCase(p.getGrille().getGrille()[i + 4][j].getEtat());
+                }
+            }
+            //JOptionPane.showMessageDialog(null, "Fin de partie \nScore : "+p.getGrille().getScore(), "GAME OVER", JOptionPane.ERROR_MESSAGE);
         }
+
         score.setText(Integer.toString(p.getGrille().getScore()));
-        level.setText(Integer.toString(p.getGrille().getLevel()));
-        
-        
-        
-      if(p.isFin()){
-        //Boîte du message d'erreur
-        JOptionPane.showMessageDialog(null, "Fin de partie \nScore : "+p.getGrille().getScore(), "GAME OVER", JOptionPane.ERROR_MESSAGE);
-        p.setFin(!p.isFin());
-        }
-        }
+        level.setText(Integer.toString(p.getGrille().getLevel() + 1));
+        nbligne.setText(Integer.toString(p.getGrille().getNbligne()));
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

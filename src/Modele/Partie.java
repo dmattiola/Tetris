@@ -27,16 +27,8 @@ public class Partie extends Thread implements Runnable {
         this.fin = false;
     }
 
-    public void Pause(){
-        this.mettreEnPause = true;
-    }
-    
-    public synchronized void TerminerPause(){
-        this.mettreEnPause = false;
-        notify();
-    }
-    
     public synchronized void run() {
+        this.grille.setScore(this.grille.getScore()+1);
         while (!this.isFin()) {
             this.grille.ajoute_piece(this.getPieceCourante());
             if(this.mettreEnPause){
@@ -45,7 +37,6 @@ public class Partie extends Thread implements Runnable {
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Partie.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
             }
             if (!(this.grille.bloquer_bas(this.pieceCourante))) {
                 try {
@@ -58,6 +49,7 @@ public class Partie extends Thread implements Runnable {
                 }
             } else {
                 if (!this.grille.fin_partie()) {
+                    this.grille.setScore(this.grille.getScore()+1);
                     this.grille.ajoute_piece(this.getPieceCourante());
                     this.grille.efface_ligne(this.getPieceCourante());
                     this.setPieceCourante(this.getPieceSuivante());
@@ -70,7 +62,16 @@ public class Partie extends Thread implements Runnable {
             }
         }
     }
-
+    
+    public void Pause(){
+        this.mettreEnPause = true;
+    }
+    
+    public synchronized void TerminerPause(){
+        this.mettreEnPause = false;
+        notify();
+    }
+    
     /**
      * @return the grille
      */

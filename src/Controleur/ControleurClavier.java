@@ -14,7 +14,7 @@ import java.awt.event.*;
  *
  * @author Dylan
  */
-public class ControleurClavier extends Thread implements KeyListener{
+public class ControleurClavier implements KeyListener{
     
     Fenetre fenetre;
     Partie p;
@@ -38,8 +38,7 @@ public class ControleurClavier extends Thread implements KeyListener{
                     this.p.Pause();
                 }
         }
-        if(!this.p.getGrille().fin_partie()){
-            if (!this.p.isMettreEnPause()){
+        if(!this.p.getGrille().fin_partie() && !this.p.isMettreEnPause()){
         switch(e.getKeyCode()){
             case (KeyEvent.VK_LEFT) :
                 if (p.getPieceCourante() != null){
@@ -65,7 +64,7 @@ public class ControleurClavier extends Thread implements KeyListener{
                 break;
         }   
 	}
-    }}
+    }
 
     /**
      *
