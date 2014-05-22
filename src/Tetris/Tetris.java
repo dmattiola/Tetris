@@ -18,6 +18,7 @@ import java.util.Observable;
 public class Tetris extends Observable implements Runnable {
 
     private Thread process;
+    private Partie P;
 
     public Tetris() {
         if (process == null) {
@@ -37,7 +38,7 @@ public class Tetris extends Observable implements Runnable {
         fenetre.addKeyListener(controleur);
         tetris.addObserver(fenetre);
         fenetre.setVisible(true);
-        p.start();        
+        p.start();  
     }
 
     @Override

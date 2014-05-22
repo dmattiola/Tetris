@@ -150,6 +150,9 @@ public class Fenetre extends JFrame implements Observer {
         }
         score.setText(Integer.toString(p.getGrille().getScore()));
         level.setText(Integer.toString(p.getGrille().getLevel()));
+        
+        
+        
       if(p.isFin()){
         //Boîte du message d'erreur
         JOptionPane.showMessageDialog(null, "Fin de partie \nScore : "+p.getGrille().getScore(), "GAME OVER", JOptionPane.ERROR_MESSAGE);

@@ -22,12 +22,21 @@ public class ControleurClavier extends Thread implements KeyListener{
     public ControleurClavier(Fenetre fenetre,Partie p) {
         this.fenetre = fenetre;
         this.p=p;
-
     }
 
+    /**
+     *
+     * @param e
+     */
+    @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_P){
-                this.p.setMettreEnPause(!this.p.isMettreEnPause());
+                if(this.p.isMettreEnPause()){
+                    this.p.TerminerPause();
+                }     
+                else {
+                    this.p.Pause();
+                }
         }
         if (!this.p.isMettreEnPause() || !this.p.getGrille().fin_partie())
         {
@@ -58,7 +67,18 @@ public class ControleurClavier extends Thread implements KeyListener{
 	}
     }
 
+    /**
+     *
+     * @param ke
+     */
+    @Override
     public void keyReleased(KeyEvent ke) {}
+
+    /**
+     *
+     * @param ke
+     */
+    @Override
     public void keyTyped(KeyEvent ke) {}
 
 

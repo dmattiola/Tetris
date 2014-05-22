@@ -19,7 +19,7 @@ public class Grille extends Observable{
     private final int largeur = 10;
     private int level;
     private int score;
-    private boolean pause;
+    private final boolean pause;
 
     public Grille() {
         initialiserGrille();

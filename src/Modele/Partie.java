@@ -27,9 +27,26 @@ public class Partie extends Thread implements Runnable {
         this.fin = false;
     }
 
-    public void run() {
+    public void Pause(){
+        this.mettreEnPause = true;
+    }
+    
+    public synchronized void TerminerPause(){
+        this.mettreEnPause = false;
+        notify();
+    }
+    
+    public synchronized void run() {
         while (!this.isFin()) {
             this.grille.ajoute_piece(this.getPieceCourante());
+            if(this.mettreEnPause){
+                try {
+                    this.wait();
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Partie.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
             if (!(this.grille.bloquer_bas(this.pieceCourante))) {
                 try {
                     this.grille.ajoute_piece(this.getPieceCourante());
@@ -49,7 +66,6 @@ public class Partie extends Thread implements Runnable {
                 else{
                     this.setFin(this.grille.fin_partie());
                     this.setPieceCourante(null);
-                    Thread.currentThread().interrupt();
                 }
             }
         }
