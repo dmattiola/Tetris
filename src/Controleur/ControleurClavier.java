@@ -38,8 +38,8 @@ public class ControleurClavier extends Thread implements KeyListener{
                     this.p.Pause();
                 }
         }
-        if (!this.p.isMettreEnPause() || !this.p.getGrille().fin_partie())
-        {
+        if(!this.p.getGrille().fin_partie()){
+            if (!this.p.isMettreEnPause()){
         switch(e.getKeyCode()){
             case (KeyEvent.VK_LEFT) :
                 if (p.getPieceCourante() != null){
@@ -65,7 +65,7 @@ public class ControleurClavier extends Thread implements KeyListener{
                 break;
         }   
 	}
-    }
+    }}
 
     /**
      *
