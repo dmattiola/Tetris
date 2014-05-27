@@ -67,7 +67,7 @@ public class Piece {
     }
 
     public int[][] tirerPiece() {
-        int numero = monRandom(1, 8);
+        int numero = monRandom(1, 7);
         switch (numero) {
             case (1):
                 return Piece1;
