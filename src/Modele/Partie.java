@@ -30,7 +30,7 @@ public class Partie extends Thread implements Runnable {
 
     public synchronized void run() {
         int temps;
-        this.grille.setScore(this.grille.getScore()+1);
+        this.grille.setScore(this.grille.getScore()+1); // des qu'une piece est placée sur le plateau, on augmente le score de 1
         while (!this.isFin()) {
             this.grille.ajoute_piece(this.getPieceCourante());
             if(this.mettreEnPause){

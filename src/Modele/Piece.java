@@ -53,6 +53,11 @@ public class Piece {
     {0, 0, 0, 0, 0, 0, 0, 7, 0, 7, 7, 7, 0, 0, 0, 0},
     {0, 7, 7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 7, 7, 7, 0, 7, 0, 0, 0, 0, 0, 0}};
+    
+    public int[][] Bombe = {{1,0,1,0,0,2,0,2,3,0,3,0,0,4,0,4},
+        {1,0,1,0,0,2,0,2,3,0,3,0,0,4,0,4},
+        {1,0,1,0,0,2,0,2,3,0,3,0,0,4,0,4},
+        {1,0,1,0,0,2,0,2,3,0,3,0,0,4,0,4}};
 
     public Piece() {
         this.x = 0;
@@ -62,7 +67,7 @@ public class Piece {
     }
 
     public int[][] tirerPiece() {
-        int numero = monRandom(1, 7);
+        int numero = monRandom(1, 8);
         switch (numero) {
             case (1):
                 return Piece1;
@@ -78,6 +83,8 @@ public class Piece {
                 return Piece6;
             case (7):
                 return Piece7;
+           // case (8) :
+             //   return Bombe;
             default:
                 return Piece1;
         }

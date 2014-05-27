@@ -71,7 +71,7 @@ public class Case extends JPanel{
                 this.setBackground(Color.MAGENTA);
                 break;
             case(8):
-                this.setBackground(Color.DARK_GRAY);
+                this.setBackground(Color.GRAY);
                 break;
         }
     }

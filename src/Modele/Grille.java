@@ -51,7 +51,7 @@ public class Grille extends Observable{
         this.grille = grille;
     }
     
-    
+    // 
     public void decale_gauche(Piece p) {
         enlever_piece(p);
         p.setY(p.getY() - 1); // on simule le decalage de la piece d'une case vers la gauche, une colonne en moins
@@ -208,10 +208,10 @@ public class Grille extends Observable{
                 }
                 if(rempli){
                     setNbligne(getNbligne()+1);
-                    setScore(getScore()+5*(getLevel()+1));
+                    setScore(getScore()+5*(getLevel()+1)); // fait evoluer le score en fonction du level
                     supprimer_ligne(p.getX()+ligne);
                     decaler_lignes(p.getX()+ligne);
-                    setLevel(getNbligne()/5);
+                    setLevel(getNbligne()/5); // le level augmente toutes les 5 lignes effectuées
                 } 
             }   
         }
