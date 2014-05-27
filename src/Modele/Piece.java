@@ -66,6 +66,36 @@ public class Piece {
         this.pieceCourante = tirerPiece();
     }
 
+    Piece(int cheat) {
+        this.x = 0;
+        this.y = 3;
+        this.position = 1;
+        this.pieceCourante = getPiece(cheat);
+    }
+
+    public int[][] getPiece(int cheat) {
+        switch (cheat) {
+            case (1):
+                return Piece1;
+            case (2):
+                return Piece2;
+            case (3):
+                return Piece3;
+            case (4):
+                return Piece4;
+            case (5):
+                return Piece5;
+            case (6):
+                return Piece6;
+            case (7):
+                return Piece7;
+           // case (8) :
+             //   return Bombe;
+            default:
+                return Piece1;
+        }
+    }
+    
     public int[][] tirerPiece() {
         int numero = monRandom(1, 8);
         switch (numero) {

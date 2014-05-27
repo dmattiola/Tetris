@@ -19,6 +19,7 @@ public class Partie extends Thread implements Runnable {
     private Grille grille;
     private boolean mettreEnPause;
     private boolean fin;
+    private int cheat = 0;
 
     public Partie() {
         this.pieceCourante = new Piece();
@@ -30,10 +31,13 @@ public class Partie extends Thread implements Runnable {
 
     public synchronized void run() {
         int temps;
-        this.grille.setScore(this.grille.getScore()+1); // des qu'une piece est placée sur le plateau, on augmente le score de 1
+        this.grille.setScore(this.grille.getScore() + 1); // des qu'une piece est placée sur le plateau, on augmente le score de 1
         while (!this.isFin()) {
+            if (this.cheat != 0) {
+                this.setPieceSuivante(new Piece(cheat));
+            }
             this.grille.ajoute_piece(this.getPieceCourante());
-            if(this.mettreEnPause){
+            if (this.mettreEnPause) {
                 try {
                     this.wait();
                 } catch (InterruptedException ex) {
@@ -45,10 +49,9 @@ public class Partie extends Thread implements Runnable {
                     this.grille.ajoute_piece(this.getPieceCourante());
                     this.grille.decale_bas(this.getPieceCourante());
                     // definition level avec level max
-                    if(this.grille.getLevel()<19){
+                    if (this.grille.getLevel() < 19) {
                         temps = 1000 - 50 * this.grille.getLevel();
-                    }
-                    else {
+                    } else {
                         temps = 900;
                     }
                     Thread.currentThread().sleep(temps);
@@ -57,13 +60,17 @@ public class Partie extends Thread implements Runnable {
                 }
             } else {
                 if (!this.grille.fin_partie()) {
-                    this.grille.setScore(this.grille.getScore()+1);
+                    this.grille.setScore(this.grille.getScore() + 1);
                     this.grille.ajoute_piece(this.getPieceCourante());
                     this.grille.efface_ligne(this.getPieceCourante());
                     this.setPieceCourante(this.getPieceSuivante());
-                    this.setPieceSuivante(new Piece());
-                }
-                else{
+                    if (this.cheat != 0) {
+                        this.setPieceSuivante(new Piece(cheat));
+                    } else {
+                        this.setPieceSuivante(new Piece());
+                    }
+
+                } else {
                     this.setFin(this.grille.fin_partie());
                     this.setPieceCourante(null);
                     Thread.currentThread().stop();
@@ -71,16 +78,20 @@ public class Partie extends Thread implements Runnable {
             }
         }
     }
-    
-    public void Pause(){
+
+    public void Pause() {
         this.mettreEnPause = true;
     }
-    
-    public synchronized void TerminerPause(){
+
+    public synchronized void TerminerPause() {
         this.mettreEnPause = false;
         notify();
     }
-    
+
+    public void setCheat(int cheat) {
+        this.cheat = cheat;
+    }
+
     /**
      * @return the grille
      */
