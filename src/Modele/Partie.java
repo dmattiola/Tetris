@@ -14,7 +14,6 @@ import java.util.logging.*;
  */
 public class Partie extends Thread implements Runnable {
 
-    private Fenetre fen;
     private Piece pieceCourante;
     private Piece pieceSuivante;
     private Grille grille;
@@ -45,8 +44,9 @@ public class Partie extends Thread implements Runnable {
                 try {
                     this.grille.ajoute_piece(this.getPieceCourante());
                     this.grille.decale_bas(this.getPieceCourante());
+                    // definition level avec level max
                     if(this.grille.getLevel()<19){
-                    temps = 1000 - 50 * this.grille.getLevel();
+                        temps = 1000 - 50 * this.grille.getLevel();
                     }
                     else {
                         temps = 900;
@@ -66,6 +66,7 @@ public class Partie extends Thread implements Runnable {
                 else{
                     this.setFin(this.grille.fin_partie());
                     this.setPieceCourante(null);
+                    Thread.currentThread().stop();
                 }
             }
         }

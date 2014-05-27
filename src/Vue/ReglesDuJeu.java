@@ -6,11 +6,13 @@
 
 package Vue;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author Dylan
  */
-public class ReglesDuJeu extends javax.swing.JFrame {
+public class ReglesDuJeu extends JFrame {
 
     /**
      * Creates new form ReglesDuJeu
@@ -34,11 +36,11 @@ public class ReglesDuJeu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 488, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 452, Short.MAX_VALUE)
         );
 
         pack();

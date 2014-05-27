@@ -7,7 +7,6 @@ package Vue;
 
 import Controleur.*;
 import Modele.*;
-import Tetris.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -44,33 +43,18 @@ public class Fenetre extends JFrame implements Observer {
     public Fenetre(final Partie p) {
         super();
         this.p = p;
-        this.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent arg0) {
-                super.windowClosing(arg0);
-                System.exit(0);
-                }
-        });// Mise en place de la fenetre principal
+        Controleur cp = new Controleur(this,p);
+        this.addWindowListener(cp);
+
+        // Mise en place de la fenetre principal
         this.setTitle("Jeu du Tetris");
         this.setSize(430, 500);
 
         // Mise en place du menu
         jMenu1.setText("Jeu");
         JMenuItem item1 = new JMenuItem("Nouveau Jeu");
-        item1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                Tetris tetris = new Tetris();
-                Partie p= new Partie();
-                setVisible(false);
-                Fenetre f=new Fenetre(p);
-                Controleur controleur = new Controleur(f, p);
-                f.addKeyListener(controleur);
-                tetris.addObserver(f);
-                f.setVisible(true);
-                p.start();               
-            }
-        });
+        
+        item1.addActionListener(cp);
         jMenu1.add(item1);
         jMenu2.setText("Pause");
         jMenu2.addActionListener(new ActionListener() {
@@ -83,8 +67,7 @@ public class Fenetre extends JFrame implements Observer {
                 else {
                     jMenu2.setSelected(true);
                     p.Pause();
-                }
-                //Thread.currentThread().interrupt();               
+                }          
             }
         });
         jMenu3.setText("Règles du jeu");
@@ -163,7 +146,7 @@ public class Fenetre extends JFrame implements Observer {
         level.setText(Integer.toString(p.getGrille().getLevel() + 1));
         nbligne.setText(Integer.toString(p.getGrille().getNbligne()));
         }
-        
+        // fin de partie
         for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 4; j++) {
                     ((Case) PieceSuivante.getComponent(i * 4 + j)).ColorierCase(0);
@@ -176,7 +159,9 @@ public class Fenetre extends JFrame implements Observer {
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Grille.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
                 ((Case) plateau.getComponent(i * 10 + j)).ColorierCase(8);
+                
             }
         }
         JOptionPane.showMessageDialog(this, "Fin de partie \nScore : "+p.getGrille().getScore(), "GAME OVER", JOptionPane.ERROR_MESSAGE);

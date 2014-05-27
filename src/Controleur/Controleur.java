@@ -15,29 +15,29 @@ import java.awt.event.*;
  *
  * @author Dylan
  */
-public class Controleur implements KeyListener, ActionListener{
+public class Controleur extends WindowAdapter implements KeyListener, ActionListener{
     
     Fenetre fenetre;
     Partie p;
-    Thread th;
-    Fenetre fe;
 
     public Controleur(Fenetre fenetre,Partie p) {
         this.fenetre = fenetre;
         this.p=p;
     }
 
-    public void actionPerformed(ActionEvent ae){
+     @Override
+    public void actionPerformed(ActionEvent ae) {
         Tetris tetris = new Tetris();
-                Partie p= new Partie();
-                fe.setVisible(false);
-                Fenetre f=new Fenetre(p);
-                Controleur controleur = new Controleur(f, p);
-                f.addKeyListener(controleur);
-                tetris.addObserver(f);
-                f.setVisible(true);
-                p.start();      
+        Partie p = new Partie();
+        this.fenetre.setVisible(false);
+        Fenetre f = new Fenetre(p);
+        Controleur controleur = new Controleur(f, p);
+        f.addKeyListener(controleur);
+        tetris.addObserver(f);
+        f.setVisible(true);
+        p.start();
     }
+    
     /**
      *
      * @param e
@@ -93,6 +93,16 @@ public class Controleur implements KeyListener, ActionListener{
      */
     @Override
     public void keyTyped(KeyEvent ke) {}
+
+
+
+    @Override
+    public void windowClosing(WindowEvent we) {
+        super.windowClosing(we);
+        System.exit(0);
+    }
+
+
 
 
 }
