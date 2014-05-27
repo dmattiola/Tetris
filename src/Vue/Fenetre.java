@@ -17,7 +17,7 @@ import javax.swing.border.*;
 
 /**
  *
- * @author Dylan
+ * @author Dylan Jérémy
  */
 public class Fenetre extends JFrame implements Observer {
 

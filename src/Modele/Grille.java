@@ -10,7 +10,7 @@ import java.util.Observable;
 
 /**
  *
- * @author Dylan
+ * @author Dylan Jérémy
  */
 public class Grille extends Observable{
     
