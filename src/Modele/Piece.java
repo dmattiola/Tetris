@@ -9,7 +9,7 @@ import static Modele.Utilitaire.monRandom;
 
 /**
  *
- * @author Dylan
+ * @author Dylan Jérémy
  */
 public class Piece {
 

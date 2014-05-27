@@ -10,7 +10,7 @@ import java.util.Random;
 
 /**
  *
- * @author Dylan
+ * @author Dylan Jérémy
  */
 public class Utilitaire {
     

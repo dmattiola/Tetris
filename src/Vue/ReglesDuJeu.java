@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author Dylan
+ * @author Dylan Jérémy
  */
 public class ReglesDuJeu extends JFrame {
 

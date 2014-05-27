@@ -13,7 +13,7 @@ import java.util.Observable;
 
 /**
  *
- * @author Dylan
+ * @author Dylan Jérémy
  */
 public class Tetris extends Observable implements Runnable {
 

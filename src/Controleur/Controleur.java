@@ -12,7 +12,7 @@ import java.awt.event.*;
 
 /**
  *
- * @author Dylan
+ * @author Dylan Jérémy
  */
 public class Controleur extends WindowAdapter implements KeyListener, ActionListener {
 

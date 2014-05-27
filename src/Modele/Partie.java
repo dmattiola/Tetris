@@ -10,7 +10,7 @@ import java.util.logging.*;
 
 /**
  *
- * @author Dylan
+ * @author Dylan Jérémy
  */
 public class Partie extends Thread implements Runnable {
 
