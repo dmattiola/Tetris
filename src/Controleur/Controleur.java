@@ -7,6 +7,7 @@
 package Controleur;
 
 import Modele.Partie;
+import Tetris.Tetris;
 import Vue.Fenetre;
 import java.awt.event.*;
 
@@ -14,16 +15,29 @@ import java.awt.event.*;
  *
  * @author Dylan
  */
-public class ControleurClavier implements KeyListener{
+public class Controleur implements KeyListener, ActionListener{
     
     Fenetre fenetre;
     Partie p;
+    Thread th;
+    Fenetre fe;
 
-    public ControleurClavier(Fenetre fenetre,Partie p) {
+    public Controleur(Fenetre fenetre,Partie p) {
         this.fenetre = fenetre;
         this.p=p;
     }
 
+    public void actionPerformed(ActionEvent ae){
+        Tetris tetris = new Tetris();
+                Partie p= new Partie();
+                fe.setVisible(false);
+                Fenetre f=new Fenetre(p);
+                Controleur controleur = new Controleur(f, p);
+                f.addKeyListener(controleur);
+                tetris.addObserver(f);
+                f.setVisible(true);
+                p.start();      
+    }
     /**
      *
      * @param e

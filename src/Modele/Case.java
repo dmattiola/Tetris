@@ -70,6 +70,9 @@ public class Case extends JPanel{
             case(7):
                 this.setBackground(Color.MAGENTA);
                 break;
+            case(8):
+                this.setBackground(Color.DARK_GRAY);
+                break;
         }
     }
 

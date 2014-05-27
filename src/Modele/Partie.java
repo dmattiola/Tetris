@@ -5,6 +5,7 @@
  */
 package Modele;
 
+import Vue.Fenetre;
 import java.util.logging.*;
 
 /**
@@ -13,6 +14,7 @@ import java.util.logging.*;
  */
 public class Partie extends Thread implements Runnable {
 
+    private Fenetre fen;
     private Piece pieceCourante;
     private Piece pieceSuivante;
     private Grille grille;
@@ -28,6 +30,7 @@ public class Partie extends Thread implements Runnable {
     }
 
     public synchronized void run() {
+        int temps;
         this.grille.setScore(this.grille.getScore()+1);
         while (!this.isFin()) {
             this.grille.ajoute_piece(this.getPieceCourante());
@@ -42,7 +45,12 @@ public class Partie extends Thread implements Runnable {
                 try {
                     this.grille.ajoute_piece(this.getPieceCourante());
                     this.grille.decale_bas(this.getPieceCourante());
-                    int temps = 1000 - 50 * this.grille.getLevel();
+                    if(this.grille.getLevel()<19){
+                    temps = 1000 - 50 * this.grille.getLevel();
+                    }
+                    else {
+                        temps = 900;
+                    }
                     Thread.currentThread().sleep(temps);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Partie.class.getName()).log(Level.SEVERE, null, ex);
