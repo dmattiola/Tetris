@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Tetris;
 
 import Controleur.Controleur;
@@ -12,7 +6,7 @@ import Vue.Fenetre;
 import java.util.Observable;
 
 /**
- *
+ * Classe Tetris
  * @author Dylan Jérémy
  */
 public class Tetris extends Observable implements Runnable {
@@ -20,6 +14,9 @@ public class Tetris extends Observable implements Runnable {
     private Thread process;
     private Partie P;
 
+    /**
+     * Constructeur du Tetris
+     */
     public Tetris() {
         if (process == null) {
             process = new Thread(this);
@@ -28,6 +25,7 @@ public class Tetris extends Observable implements Runnable {
     }
 
     /**
+     * Methode principale : main du Tetris : lance la partie de Tetris
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -41,6 +39,9 @@ public class Tetris extends Observable implements Runnable {
         p.start();  
     }
 
+    /**
+     * Methode run du thread du Tetris
+     */
     @Override
     public void run() {
         while (true) {

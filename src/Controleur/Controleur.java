@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controleur;
 
 import Modele.Partie;
@@ -11,7 +6,8 @@ import Vue.Fenetre;
 import java.awt.event.*;
 
 /**
- *
+ * Controleur : synchronization entre le modèle et la vue
+ * 
  * @author Dylan Jérémy
  */
 public class Controleur extends WindowAdapter implements KeyListener, ActionListener {
@@ -19,11 +15,20 @@ public class Controleur extends WindowAdapter implements KeyListener, ActionList
     Fenetre fenetre;
     Partie p;
 
+    /**
+     * Constructeur du controleur
+     * @param fenetre vue : fenetre principale
+     * @param p modele : partie en cours
+     */
     public Controleur(Fenetre fenetre, Partie p) {
         this.fenetre = fenetre;
         this.p = p;
     }
 
+    /**
+     * Methode actionnée lors du clic sur l'item nouvelle partie : lance une nouvelle partie
+     * @param ae ActionEvent
+     */
     @Override
     public void actionPerformed(ActionEvent ae) {
         Tetris tetris = new Tetris();
@@ -38,11 +43,12 @@ public class Controleur extends WindowAdapter implements KeyListener, ActionList
     }
 
     /**
-     *
-     * @param e
+     * Methode actionnée lors de l'appui sur un touche
+     * @param e KeyEvent
      */
     @Override
     public void keyPressed(KeyEvent e) {
+        // lors de l'appui sur la touche P, mise en pause du jeu ou alors reprise du jeu
         if (e.getKeyCode() == KeyEvent.VK_P) {
             if (this.p.isMettreEnPause()) {
                 this.p.TerminerPause();
@@ -50,6 +56,7 @@ public class Controleur extends WindowAdapter implements KeyListener, ActionList
                 this.p.Pause();
             }
         }
+        // si le jeu de n'est pas en pause ou que la partie n'est pas fini, on peut utiliser les touches
         if (!this.p.getGrille().fin_partie() && !this.p.isMettreEnPause()) {
             switch (e.getKeyCode()) {
                 case (KeyEvent.VK_LEFT):
@@ -119,21 +126,25 @@ public class Controleur extends WindowAdapter implements KeyListener, ActionList
     }
 
     /**
-     *
-     * @param ke
+     * Methode KeyReleased inutilisée
+     * @param ke KeyEvent
      */
     @Override
     public void keyReleased(KeyEvent ke) {
     }
 
     /**
-     *
-     * @param ke
+     * Methode KeyTyped inutilisée
+     * @param ke KeyEvent
      */
     @Override
     public void keyTyped(KeyEvent ke) {
     }
 
+    /**
+     * Methode qui permet la fermeture de l'application Tetris
+     * @param we WindowEvent
+     */
     @Override
     public void windowClosing(WindowEvent we) {
         super.windowClosing(we);

@@ -1,16 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Modele;
 
 import java.awt.Color;
 import javax.swing.JPanel;
 
 /**
- *
+ * Classe Case
  * @author Dylan Jérémy
  */
 public class Case extends JPanel{
@@ -19,31 +13,31 @@ public class Case extends JPanel{
     private int y; // colonne de la case dans la grille
     private int etat; // donne un entier identifiant la piece présente dans la case ou 0 si la case est inoccupée
     
+    /**
+     * Constructeur de Case (utilisé dans la vue)
+     */
     public Case(){
-        super();
+        super(); // JPanel
         this.setBackground(Color.BLACK); // Couleur de la case par défaut 
     }
     
+    /**
+     * Constructeur de la Case : avec état à 0
+     * @param x ligne
+     * @param y colonne
+     */
     public Case(int x,int y){
         this.x=x;
         this.y=y;
         this.etat = 0;
     }
 
-    /**
-     * @return the etat
-     */
-    public int getEtat() {
-        return etat;
-    }
 
-    /**
-     * @param etat the etat to set
-     */
-    public void setEtat(int etat) {
-        this.etat = etat;
-    }
     
+    /**
+     * Méthode qui Colorie une case de la grille (VUE) en fonction de l'etat de la case
+     * @param etat int donnant une couleur : etat de la case
+     */
     public void ColorierCase(int etat){ // définit le fond d'une case en fonction de son etat
         switch(etat){
             case(0):
@@ -74,6 +68,20 @@ public class Case extends JPanel{
                 this.setBackground(Color.GRAY);
                 break;
         }
+    }
+    
+        /**
+     * @return the etat
+     */
+    public int getEtat() {
+        return etat;
+    }
+
+    /**
+     * @param etat the etat to set
+     */
+    public void setEtat(int etat) {
+        this.etat = etat;
     }
 
 }

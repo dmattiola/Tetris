@@ -1,14 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Modele;
 
 import static Modele.Utilitaire.monRandom;
 
 /**
- *
+ * Classe Piece : regroupe toutes les pieces et les constructeurs
  * @author Dylan Jérémy
  */
 public class Piece {
@@ -18,54 +13,84 @@ public class Piece {
     private int position;
     private int[][] pieceCourante = new int[4][16];
 
-    // Piece formant un S
-    public int[][] Piece1 = {{0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+    /**
+     * Piece formant un S
+     */
+        public int[][] Piece1 = {{0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0},
     {0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0}};
-    // Piece formant un carré
-    public int[][] Piece2 = {{0, 2, 2, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+
+    /**
+     *  Piece formant un carré
+     */
+        public int[][] Piece2 = {{0, 2, 2, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     {0, 2, 2, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     {0, 2, 2, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     {0, 2, 2, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
-    // Piece formant une barre
-    public int[][] Piece3 = {{0, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0},
+
+    /**
+     * Piece formant une barre
+     */
+        public int[][] Piece3 = {{0, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0},
     {3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     {0, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0},
     {3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
-    // Piece formant un Z
-    public int[][] Piece4 = {{0, 0, 4, 0, 0, 4, 4, 0, 0, 4, 0, 0, 0, 0, 0, 0},
+
+    /**
+     * Piece formant un Z
+     */
+        public int[][] Piece4 = {{0, 0, 4, 0, 0, 4, 4, 0, 0, 4, 0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 4, 4, 0, 0, 0, 0},
     {0, 0, 4, 0, 0, 4, 4, 0, 0, 4, 0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 4, 4, 0, 0, 0, 0}};
-    // Piece formant un T
-    public int[][] Piece5 = {{0, 5, 0, 0, 0, 5, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0},
+
+    /**
+     * Piece formant un T
+     */
+        public int[][] Piece5 = {{0, 5, 0, 0, 0, 5, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 5, 5, 0, 0, 0, 0},
     {0, 0, 0, 5, 0, 0, 5, 5, 0, 0, 0, 5, 0, 0, 0, 0},
-    {0, 5, 5, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
-    // Piece formant un L inversé
-    public int[][] Piece6 = {{0, 0, 6, 0, 0, 0, 6, 0, 0, 6, 6, 0, 0, 0, 0, 0},
+    {0, 5, 5, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0}}; 
+
+    /**
+     * Piece formant un L inversé
+     */
+        public int[][] Piece6 = {{0, 0, 6, 0, 0, 0, 6, 0, 0, 6, 6, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 6, 6, 6, 0, 0, 0, 6, 0, 0, 0, 0},
     {0, 6, 6, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 6, 0, 0, 0, 6, 6, 6, 0, 0, 0, 0}};
-    // Piece formant un L
-    public int[][] Piece7 = {{0, 7, 0, 0, 0, 7, 0, 0, 0, 7, 7, 0, 0, 0, 0, 0},
+
+    /**
+     * Piece formant un L
+     */
+        public int[][] Piece7 = {{0, 7, 0, 0, 0, 7, 0, 0, 0, 7, 7, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 0, 7, 0, 7, 7, 7, 0, 0, 0, 0},
     {0, 7, 7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 7, 7, 7, 0, 7, 0, 0, 0, 0, 0, 0}};
     
+    /**
+     * Piece BOMBE
+     */
     public int[][] Bombe = {{1,0,1,0,0,2,0,2,3,0,3,0,0,4,0,4},
         {1,0,1,0,0,2,0,2,3,0,3,0,0,4,0,4},
         {1,0,1,0,0,2,0,2,3,0,3,0,0,4,0,4},
         {1,0,1,0,0,2,0,2,3,0,3,0,0,4,0,4}};
 
+    /**
+     * Constructeur de Piece
+     */
     public Piece() {
-        this.x = 0;
+        this.x = 0; // initialisation de la position en (0,3), c'est à dire centré et en haut de la grille
         this.y = 3;
-        this.position = monRandom(0, 3);
+        this.position = monRandom(0, 3); // correspond au sens de la pièce
         this.pieceCourante = tirerPiece();
     }
 
+    /**
+     * Constructeur de la piece CHEAT
+     * @param cheat int donnant la piece souhaitée
+     */
     Piece(int cheat) {
         this.x = 0;
         this.y = 3;
@@ -73,6 +98,11 @@ public class Piece {
         this.pieceCourante = getPiece(cheat);
     }
 
+    /**
+     * Methode qui donne la matrice de la piece en fonction de l'int rentré
+     * @param cheat int rentré donnant une piece
+     * @return la matrice de la piece
+     */
     public int[][] getPiece(int cheat) {
         switch (cheat) {
             case (1):
@@ -96,6 +126,10 @@ public class Piece {
         }
     }
     
+    /**
+     * Methode qui donne une pièce au hasard
+     * @return la matrice de la piece prise au hasard
+     */
     public int[][] tirerPiece() {
         int numero = monRandom(1, 7);
         switch (numero) {

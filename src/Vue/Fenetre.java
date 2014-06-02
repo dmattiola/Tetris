@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Vue;
 
 import Controleur.*;
@@ -16,7 +11,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 /**
- *
+ * Classe Fenetre : vue de notre application
  * @author Dylan Jérémy
  */
 public class Fenetre extends JFrame implements Observer {
@@ -37,12 +32,13 @@ public class Fenetre extends JFrame implements Observer {
 
     /**
      * Creates new form Fenetre
-     *
-     * @param p
+     * @param p partie de Tetris
      */
     public Fenetre(final Partie p) {
+        
         super();
         this.p = p;
+        // Controleur de la fenetre
         Controleur cp = new Controleur(this,p);
         this.addWindowListener(cp);
 
@@ -53,7 +49,6 @@ public class Fenetre extends JFrame implements Observer {
         // Mise en place du menu
         jMenu1.setText("Jeu");
         JMenuItem item1 = new JMenuItem("Nouveau Jeu");
-        
         item1.addActionListener(cp);
         jMenu1.add(item1);
         jMenu2.setText("Pause");
@@ -128,6 +123,11 @@ public class Fenetre extends JFrame implements Observer {
         this.add(principal);
     }
 
+    /**
+     * Methode apellé pour mettre à jour la vue en fonction du modele et des actions de l'utilisateur
+     * @param o observable
+     * @param o1 object
+     */
     @Override
     public void update(Observable o, Object o1) {
         while(!p.isFin()) {
@@ -146,6 +146,7 @@ public class Fenetre extends JFrame implements Observer {
         level.setText(Integer.toString(p.getGrille().getLevel() + 1));
         nbligne.setText(Integer.toString(p.getGrille().getNbligne()));
         }
+        
         // fin de partie
         for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 4; j++) {

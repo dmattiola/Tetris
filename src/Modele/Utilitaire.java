@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Modele;
 
 import java.util.Random;
 
 /**
- *
+ * Classe Utilitaire - regroupe les methode communes à beaucoup de classes
  * @author Dylan Jérémy
  */
 public class Utilitaire {
